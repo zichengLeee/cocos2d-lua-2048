@@ -3,8 +3,14 @@
 -- Date: 2015-06-19 01:08:19
 -- 求一个Cocos2d-Lua的兼职开发或者外包游戏的开发工作，有意者可直接联系我的邮箱，tks.
 --
+-- 1,4	2,4	3,4	4,4
+-- 1,3	2,3	3,3	4,3
+-- 1,2	2,2	3,2	4,2
+-- 1,1	2,1	3,1	4,1
+
 local size
 local cardArr = {}
+local touchStart = {0, 0}
 
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
@@ -21,11 +27,29 @@ function MainScene:ctor()
     --     :align(display.CENTER, display.cx, display.cy)
     --     :addTo(self)
 
-    self.visibleSize = cc.Director:getInstance():getVisibleSize()
-    self.origin = cc.Director:getInstance():getVisibleOrigin()
+    -- self.visibleSize = cc.Director:getInstance():getVisibleSize()
+    -- self.origin = cc.Director:getInstance():getVisibleOrigin()
 
-    size = cc.Director:getInstance():getVisibleSize()
-    self:createCardSrpite(size)
+    -- 创建一个图片显示对象
+	local sprite = display.newSprite("Item_pause.png", display.cx,display.top - 50, params):addTo(self)
+
+	-- 启用触摸
+	sprite:setTouchMode(cc.TOUCH_MODE_ONE_BY_ONE)
+	sprite:setTouchEnabled(true)
+	-- 设置处理函数
+	sprite:addNodeEventListener(cc.NODE_TOUCH_EVENT,function(event)
+		if event.name ~= "moved" then
+            print(event.name)
+        end
+
+	    if event.name == "began" then
+	    	print(event.x, event.y, event.prevX, event.prevY)
+	    	return true
+	    end
+	end)
+
+    self.size = cc.Director:getInstance():getVisibleSize()
+    self:createCardSrpite(self.size)
 
     self:autoCreateCardNumber()
     self:autoCreateCardNumber()
@@ -34,10 +58,10 @@ end
 function MainScene:createCardSrpite(s)
 	local SquareLong = (s.width - 28) / 4
 
-	for i=0,3 do
+	for i=1,4 do
 		cardArr[i] = {}
-		for j=0,3 do
-			local cardSprite = CardSprite:createCardSprite(0,SquareLong,SquareLong,SquareLong * i +20, SquareLong*j + 10 + s.height / 6)
+		for j=1,4 do
+			local cardSprite = CardSprite.new(0,SquareLong,SquareLong,SquareLong * (i-1) +20, SquareLong*(j-1) + 10 + s.height / 6)
 			self:addChild(cardSprite)
 
 			cardArr[i][j] = cardSprite
@@ -46,9 +70,9 @@ function MainScene:createCardSrpite(s)
 end
 
 function MainScene:autoCreateCardNumber()
-	local i = self:getRandom(3)
-	local j = self:getRandom(3)
-	print(i,j)
+	local i = self:getRandom(4)
+	local j = self:getRandom(4)
+	-- print(i,j)
 	local card = cardArr[i][j]
 
 	if (card:getNumber() > 0) then
@@ -56,21 +80,113 @@ function MainScene:autoCreateCardNumber()
 	else
 		card:setNumber(self:getRandom(9) < 1 and 4 or 2)
 	end
+
+
 end
 
 
 function MainScene:getRandom(maxSize)
-	print("执行了MainScene:getRandom")
+	-- print("执行了MainScene:getRandom")
     --随机1次并不能得到真正的随机数，因为第一次得到的随机数字都是一样的。所以我先随机了5次。
     --多次调用随机5次会导致Stack Overflow，我发现在ctor里先随机一次就OK了。
-    local rnum = math.random(0,maxSize)
+    local rnum = math.random(1,maxSize)
     -- for i=1,5 do
     -- 	rnum = math.random(0,maxSize)
     -- end
     return rnum
 end
 
+function MainScene:onTouch(event, x, y)
+	if event == 'began' then
+		touchStart = {x, y}
+	elseif event == 'ended' then
+		local tx, ty = x - touchStart[1], y - touchStart[2]
+		if (tx > 50) then
+			self:doRight()
+		elseif (tx < - 50) then
+			self:doLeft()
+		elseif (ty > 50) then
+			self:doUp()
+		elseif (ty < - 50) then
+			self:doDown()
+		end
+	end
+	return true
+end
+
+function MainScene:doRight()
+	print("doRight")
+	-- for i=3,0,-1 do
+	-- 	for j=0,3 do
+	-- 		for y=i - 1,0,-1 do
+	-- 			print(y)
+	-- 			local card = cardArr[i][j]
+	-- 			local cardLast = cardArr[y][j]
+	-- 			if (cardLast:getNumber() > 0) then
+	-- 				if (card:getNumber() <= 0) then
+	-- 					card:setNumber(cardLast:getNumber())
+	-- 				elseif (card:getNumber() == cardLast:getNumber()) then
+	-- 					card:setNumber(card:getNumber() * 2)
+	-- 					cardLast:setNumber(0)
+	-- 				end
+	-- 				break
+	-- 			end
+	-- 		end
+	-- 	end
+	-- end
+	-- self:autoCreateCardNumber()
+end
+
+function MainScene:doLeft()
+	print("doLeft")
+	for x=1,4 do
+		for y=1,4 do
+			for x1=x + 1,4 do
+				if x1 <= 4 then
+					local card = cardArr[x][y]
+					local cardLast = cardArr[x1][y]
+
+					print("现在的位置",x,y,card:getNumber())
+					-- print("后面的位置",x1,y)
+
+
+					if (cardLast:getNumber() > 0) then
+
+						if (card:getNumber() <= 0) then
+							card:setNumber(cardLast:getNumber())
+							cardLast:setNumber(0)
+							x = x - 1
+						elseif (card:getNumber() == cardLast:getNumber()) then
+							card:setNumber(card:getNumber() * 2)
+							cardLast:setNumber(0)
+						end
+						break
+					end
+				end
+			end
+		end
+	end
+	-- self:autoCreateCardNumber()
+end
+
+function MainScene:doUp()
+	print("doUp")
+end
+
+function MainScene:doDown()
+	print("doDown")
+end
+
 function MainScene:onEnter()
+	local layer = display.newNode()
+	layer:setContentSize(display.width, display.height)
+
+	layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+		return self:onTouch(event.name, event.x, event.y)
+	end)
+	layer:setTouchEnabled(true)
+	layer:setTouchSwallowEnabled(false)
+	self:addChild(layer)
 end
 
 function MainScene:onExit()
