@@ -1,6 +1,7 @@
 --
--- Author: sheepkx
+-- Author: sheepkx@qq.com
 -- Date: 2015-06-19 01:08:19
+-- 求一个Cocos2d-Lua的兼职开发或者外包游戏的开发工作，有意者可直接联系我的邮箱，tks.
 --
 --卡片
 local CardSprite = class("CardSprite",function()
