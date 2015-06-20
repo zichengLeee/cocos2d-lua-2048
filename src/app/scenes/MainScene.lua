@@ -1,4 +1,3 @@
-local CardSprite = require("app.Objects.CardSprite")
 local size
 local cardArr = {}
 
@@ -6,9 +5,12 @@ local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
 
+local CardSprite = import("..Objects.CardSprite")
+
 function MainScene:ctor()
 	math.randomseed(os.time())
 	math.random()
+
     -- cc.ui.UILabel.new({
     --         UILabelType = 2, text = "Hello, World", size = 64})
     --     :align(display.CENTER, display.cx, display.cy)
@@ -21,20 +23,17 @@ function MainScene:ctor()
     self:createCardSrpite(size)
 
     self:autoCreateCardNumber()
-    -- self:autoCreateCardNumber()
+    self:autoCreateCardNumber()
 end
 
 function MainScene:createCardSrpite(s)
 	local SquareLong = (s.width - 28) / 4
 
 	for i=0,3 do
+		cardArr[i] = {}
 		for j=0,3 do
 			local cardSprite = CardSprite:createCardSprite(0,SquareLong,SquareLong,SquareLong * i +20, SquareLong*j + 10 + s.height / 6)
 			self:addChild(cardSprite)
-
-			if not cardArr[i] then
-        		cardArr[i] = {}
-    		end
 
 			cardArr[i][j] = cardSprite
 		end
