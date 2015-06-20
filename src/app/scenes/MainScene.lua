@@ -80,8 +80,6 @@ function MainScene:autoCreateCardNumber()
 	else
 		card:setNumber(self:getRandom(9) < 1 and 4 or 2)
 	end
-
-
 end
 
 
@@ -116,57 +114,64 @@ end
 
 function MainScene:doRight()
 	print("doRight")
-	-- for i=3,0,-1 do
-	-- 	for j=0,3 do
-	-- 		for y=i - 1,0,-1 do
-	-- 			print(y)
-	-- 			local card = cardArr[i][j]
-	-- 			local cardLast = cardArr[y][j]
-	-- 			if (cardLast:getNumber() > 0) then
-	-- 				if (card:getNumber() <= 0) then
-	-- 					card:setNumber(cardLast:getNumber())
-	-- 				elseif (card:getNumber() == cardLast:getNumber()) then
-	-- 					card:setNumber(card:getNumber() * 2)
-	-- 					cardLast:setNumber(0)
-	-- 				end
-	-- 				break
-	-- 			end
-	-- 		end
-	-- 	end
-	-- end
-	-- self:autoCreateCardNumber()
-end
+	local card
+	local cardLast
 
-function MainScene:doLeft()
-	print("doLeft")
-	for x=1,4 do
+	for x=4,1,-1 do
 		for y=1,4 do
-			for x1=x + 1,4 do
-				if x1 <= 4 then
-					local card = cardArr[x][y]
-					local cardLast = cardArr[x1][y]
-
-					print("现在的位置",x,y,card:getNumber())
-					-- print("后面的位置",x1,y)
-
-
-					if (cardLast:getNumber() > 0) then
-
-						if (card:getNumber() <= 0) then
-							card:setNumber(cardLast:getNumber())
-							cardLast:setNumber(0)
-							x = x - 1
-						elseif (card:getNumber() == cardLast:getNumber()) then
-							card:setNumber(card:getNumber() * 2)
-							cardLast:setNumber(0)
+			-- print("现在的位置",x,y,cardArr[x][y]:getNumber())
+			for x1=x - 1,1,-1 do
+				card = cardArr[x][y]
+				cardLast = cardArr[x1][y]
+				if (cardLast:getNumber() > 0) then
+					if (card:getNumber() <= 0) then
+						card:setNumber(cardLast:getNumber())
+						cardLast:setNumber(0)
+						-- 发现一个问题，这里如果不检测的话，会出现x等于0的现象，然后导致数组溢出。
+						if (x < 4) then
+							x = x + 1
 						end
-						break
+					elseif (card:getNumber() == cardLast:getNumber()) then
+						card:setNumber(card:getNumber() * 2)
+						cardLast:setNumber(0)
 					end
+					break
 				end
 			end
 		end
 	end
-	-- self:autoCreateCardNumber()
+	self:autoCreateCardNumber()
+end
+
+function MainScene:doLeft()
+	print("doLeft")
+	local card
+	local cardLast
+
+	for x=1,4 do
+		for y=1,4 do
+			-- print("现在的位置",x,y,cardArr[x][y]:getNumber())
+			for x1=x + 1,4 do
+				card = cardArr[x][y]
+				cardLast = cardArr[x1][y]
+				if (cardLast:getNumber() > 0) then
+					if (card:getNumber() <= 0) then
+						card:setNumber(cardLast:getNumber())
+						cardLast:setNumber(0)
+						-- 发现一个问题，这里如果不检测的话，会出现x等于0的现象，然后导致数组溢出。
+						if (x > 1) then
+							x = x - 1
+						end
+					elseif (card:getNumber() == cardLast:getNumber()) then
+						card:setNumber(card:getNumber() * 2)
+						cardLast:setNumber(0)
+					end
+					break
+				end
+			end
+		end
+	end
+	self:autoCreateCardNumber()
 end
 
 function MainScene:doUp()

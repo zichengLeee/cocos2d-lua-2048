@@ -72,42 +72,42 @@ function CardSprite:setNumber(num)
 	-- 	self.numLabel:setSystemFontSize(20)
 	-- end
 
-	-- if num == 0 then
-	-- 	self.bg:setColor(cc.c3b(200, 190, 180))
-	-- end
-	-- if num == 2 then
-	-- 	self.bg:setColor(cc.c3b(240, 230, 220))
-	-- end
-	-- if num == 4 then
-	-- 	self.bg:setColor(cc.c3b(240, 220, 200))
-	-- end
-	-- if num == 8 then
-	-- 	self.bg:setColor(cc.c3b(240, 180, 201))
-	-- end
-	-- if num == 16 then
-	-- 	self.bg:setColor(cc.c3b(240, 140, 90))
-	-- end
-	-- if num == 32 then
-	-- 	self.bg:setColor(cc.c3b(240, 120, 90))
-	-- end
-	-- if num == 64 then
-	-- 	self.bg:setColor(cc.c3b(240, 90, 60))
-	-- end
-	-- if num == 128 then
-	-- 	self.bg:setColor(cc.c3b(240, 90, 60))
-	-- end
-	-- if num == 256 then
-	-- 	self.bg:setColor(cc.c3b(240, 200, 70))
-	-- end
-	-- if num == 512 then
-	-- 	self.bg:setColor(cc.c3b(240, 200, 70))
-	-- end
-	-- if num == 1024 then
-	-- 	self.bg:setColor(cc.c3b(0, 130, 0))
-	-- end
-	-- if num == 2048 then
-	-- 	self.bg:setColor(cc.c3b(0, 130, 0))
-	-- end
+	if num == 0 then
+		self.bg:setColor(cc.c3b(200, 190, 180))
+	end
+	if num == 2 then
+		self.bg:setColor(cc.c3b(240, 230, 220))
+	end
+	if num == 4 then
+		self.bg:setColor(cc.c3b(240, 220, 200))
+	end
+	if num == 8 then
+		self.bg:setColor(cc.c3b(240, 180, 201))
+	end
+	if num == 16 then
+		self.bg:setColor(cc.c3b(240, 140, 90))
+	end
+	if num == 32 then
+		self.bg:setColor(cc.c3b(240, 120, 90))
+	end
+	if num == 64 then
+		self.bg:setColor(cc.c3b(240, 90, 60))
+	end
+	if num == 128 then
+		self.bg:setColor(cc.c3b(240, 90, 60))
+	end
+	if num == 256 then
+		self.bg:setColor(cc.c3b(240, 200, 70))
+	end
+	if num == 512 then
+		self.bg:setColor(cc.c3b(240, 200, 70))
+	end
+	if num == 1024 then
+		self.bg:setColor(cc.c3b(0, 130, 0))
+	end
+	if num == 2048 then
+		self.bg:setColor(cc.c3b(0, 130, 0))
+	end
 
 
 	if num > 0 then
