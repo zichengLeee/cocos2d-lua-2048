@@ -79,6 +79,7 @@ function MainScene:autoCreateCardNumber()
 		self:autoCreateCardNumber()
 	else
 		card:setNumber(self:getRandom(9) < 1 and 4 or 2)
+		card:play()
 	end
 end
 
@@ -176,10 +177,64 @@ end
 
 function MainScene:doUp()
 	print("doUp")
+	local card
+	local cardLast
+
+	for y=4,1,-1 do
+		for x=1,4 do
+			-- print("现在的位置",x,y,cardArr[x][y]:getNumber())
+			for y1=y - 1,1,-1 do
+				card = cardArr[x][y]
+				cardLast = cardArr[x][y1]
+				if (cardLast:getNumber() > 0) then
+					if (card:getNumber() <= 0) then
+						card:setNumber(cardLast:getNumber())
+						cardLast:setNumber(0)
+						-- 发现一个问题，这里如果不检测的话，会出现x等于0的现象，然后导致数组溢出。
+						if (y < 4) then
+							y = y + 1
+						end
+					elseif (card:getNumber() == cardLast:getNumber()) then
+						card:setNumber(card:getNumber() * 2)
+						cardLast:setNumber(0)
+					end
+					break
+				end
+			end
+		end
+	end
+	self:autoCreateCardNumber()
 end
 
 function MainScene:doDown()
 	print("doDown")
+	local card
+	local cardLast
+
+	for y=1,4 do
+		for x=1,4 do
+			-- print("现在的位置",x,y,cardArr[x][y]:getNumber())
+			for y1=y + 1,4 do
+				card = cardArr[x][y]
+				cardLast = cardArr[x][y1]
+				if (cardLast:getNumber() > 0) then
+					if (card:getNumber() <= 0) then
+						card:setNumber(cardLast:getNumber())
+						cardLast:setNumber(0)
+						-- 发现一个问题，这里如果不检测的话，会出现x等于0的现象，然后导致数组溢出。
+						if (y > 1) then
+							y = y - 1
+						end
+					elseif (card:getNumber() == cardLast:getNumber()) then
+						card:setNumber(card:getNumber() * 2)
+						cardLast:setNumber(0)
+					end
+					break
+				end
+			end
+		end
+	end
+	self:autoCreateCardNumber()
 end
 
 function MainScene:onEnter()

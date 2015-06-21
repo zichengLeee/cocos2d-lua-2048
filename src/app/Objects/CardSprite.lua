@@ -121,4 +121,8 @@ function CardSprite:getNumber()
 	return self.number
 end
 
+function CardSprite:play()
+	self.numLabel:runAction(cc.Sequence:create(cc.ScaleTo:create(0, 0.1, 0.1), cc.ScaleTo:create(0.5, 1, 1)))
+end
+
 return CardSprite
