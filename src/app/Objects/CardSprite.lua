@@ -122,6 +122,7 @@ function CardSprite:getNumber()
 end
 
 function CardSprite:play()
+	-- 机智，等数字出来，直接缩小，然后在播放放大动画。
 	self.numLabel:runAction(cc.Sequence:create(cc.ScaleTo:create(0, 0.1, 0.1), cc.ScaleTo:create(0.5, 1, 1)))
 end
 

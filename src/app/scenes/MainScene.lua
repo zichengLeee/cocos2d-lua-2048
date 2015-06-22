@@ -81,6 +81,10 @@ function MainScene:autoCreateCardNumber()
 		card:setNumber(self:getRandom(9) < 1 and 4 or 2)
 		card:play()
 	end
+	print(cardArr[1][4]:getNumber(),cardArr[2][4]:getNumber(),cardArr[3][4]:getNumber(),cardArr[4][4]:getNumber())
+	print(cardArr[1][3]:getNumber(),cardArr[2][3]:getNumber(),cardArr[3][3]:getNumber(),cardArr[4][3]:getNumber())
+	print(cardArr[1][4]:getNumber(),cardArr[2][2]:getNumber(),cardArr[3][2]:getNumber(),cardArr[4][2]:getNumber())
+	print(cardArr[1][1]:getNumber(),cardArr[2][1]:getNumber(),cardArr[3][1]:getNumber(),cardArr[4][1]:getNumber())
 end
 
 
