@@ -13,6 +13,9 @@ local cardArr = {}
 local touchStart = {0, 0}
 local bg
 local gridbg
+local scoreLabel
+local score
+local idDo = false
 
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
@@ -143,6 +146,7 @@ function MainScene:doRight()
 						if card:getNumber() == cardLast:getNumber() then
 							card:setNumber(cardLast:getNumber() * 2)
 							cardLast:setNumber(0)
+							isDo = true
 						end
 						x1 = 0
 						break
@@ -164,6 +168,7 @@ function MainScene:doRight()
 						card:setNumber(cardLast:getNumber())
 						cardLast:setNumber(0)
 						x1 = 0
+						isDo = true
 					end
 					x1 = x1 - 1
 				end
@@ -204,7 +209,10 @@ function MainScene:doRight()
 	-- 		end
 	-- 	end
 	-- end
-	self:autoCreateCardNumber()
+	if isDo then
+		self:autoCreateCardNumber()
+		isDo = false
+	end
 end
 
 function MainScene:doLeft()
@@ -242,6 +250,7 @@ function MainScene:doLeft()
 						if card:getNumber() == cardLast:getNumber() then
 							card:setNumber(cardLast:getNumber() * 2)
 							cardLast:setNumber(0)
+							isDo = true
 						end
 						x1 = 5
 						break
@@ -263,6 +272,7 @@ function MainScene:doLeft()
 						card:setNumber(cardLast:getNumber())
 						cardLast:setNumber(0)
 						x1 = 5
+						isDo = true
 					end
 					x1 = x1 + 1
 				end
@@ -298,7 +308,10 @@ function MainScene:doLeft()
 	-- 		end
 	-- 	end
 	-- end
-	self:autoCreateCardNumber()
+	if isDo then
+		self:autoCreateCardNumber()
+		isDo = false
+	end
 end
 
 function MainScene:doUp()
@@ -336,6 +349,7 @@ function MainScene:doUp()
 						if card:getNumber() == cardLast:getNumber() then
 							card:setNumber(cardLast:getNumber() * 2)
 							cardLast:setNumber(0)
+							isDo = true
 						end
 						y1 = 0
 						break
@@ -357,13 +371,17 @@ function MainScene:doUp()
 						card:setNumber(cardLast:getNumber())
 						cardLast:setNumber(0)
 						y1 = 0
+						isDo = true
 					end
 					y1 = y1 - 1
 				end
 			end
 		end
 	end
-	self:autoCreateCardNumber()
+	if isDo then
+		self:autoCreateCardNumber()
+		isDo = false
+	end
 end
 
 function MainScene:doDown()
@@ -401,6 +419,7 @@ function MainScene:doDown()
 						if card:getNumber() == cardLast:getNumber() then
 							card:setNumber(cardLast:getNumber() * 2)
 							cardLast:setNumber(0)
+							isDo = true
 						end
 						y1 = 5
 						break
@@ -422,13 +441,18 @@ function MainScene:doDown()
 						card:setNumber(cardLast:getNumber())
 						cardLast:setNumber(0)
 						y1 = 5
+						isDo = true
 					end
 					y1 = y1 + 1
 				end
 			end
 		end
 	end
-	self:autoCreateCardNumber()
+
+	if isDo then
+		self:autoCreateCardNumber()
+		isDo = false
+	end
 end
 
 function MainScene:onEnter()
