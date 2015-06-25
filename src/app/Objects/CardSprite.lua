@@ -26,10 +26,9 @@ function CardSprite:ctor(num,w,h,cX,cY)
 		-- numLabel:setTextColor(cc.c4b(200, 190, 180 ,255))
 		self.numLabel = cc.ui.UILabel.new({
 	        text = num,
-	        size = 100,
+	        size = 80,
     	})
-    	self.numLabel:setPosition(self.bg:getContentSize().width / 2 - 18, self.bg:getContentSize().height / 2)
-
+    	self.numLabel:setPosition(self.bg:getContentSize().width / 2 - 20, self.bg:getContentSize().height / 2)
 	else
 		-- numLabel = LabelUtils:createLabel("",18)
 		-- numLabel:setTextColor(cc.c4b(200, 190, 180 ,255))
@@ -37,8 +36,7 @@ function CardSprite:ctor(num,w,h,cX,cY)
 	        text = "",
 	        size = 80,
     	})
-    	self.numLabel:setPosition(self.bg:getContentSize().width / 2 - 18, self.bg:getContentSize().height / 2)
-
+    	self.numLabel:setPosition(self.bg:getContentSize().width / 2 - 20, self.bg:getContentSize().height / 2)
 	end
 
 	self.bg:addChild(self.numLabel)
@@ -56,21 +54,25 @@ end
 function CardSprite:setNumber(num)
 	self.number = num
 
-	-- if num >=0 then
-	-- 	self.numLabel:setSystemFontSize(80)
-	-- end
+	if num >=0 then
+		-- self.numLabel:setSystemFontSize(80)
+		self.numLabel:setPosition(self.bg:getContentSize().width / 2 - 20, self.bg:getContentSize().height / 2)
+	end
 
-	-- if num >=16 then
-	-- 	self.numLabel:setSystemFontSize(60)
-	-- end
+	if num >=16 then
+		-- self.numLabel:setSystemFontSize(60)
+		self.numLabel:setPosition(self.bg:getContentSize().width / 2 -40, self.bg:getContentSize().height / 2)
+	end
 
-	-- if num >=128 then
-	-- 	self.numLabel:setSystemFontSize(40)
-	-- end
+	if num >=128 then
+		-- self.numLabel:setSystemFontSize(40)
+		self.numLabel:setPosition(self.bg:getContentSize().width / 2 -60, self.bg:getContentSize().height / 2)
+	end
 
-	-- if num >=1024 then
-	-- 	self.numLabel:setSystemFontSize(20)
-	-- end
+	if num >=1024 then
+		-- self.numLabel:setSystemFontSize(20)
+		self.numLabel:setPosition(self.bg:getContentSize().width / 2 -80, self.bg:getContentSize().height / 2)
+	end
 
 	if num == 0 then
 		self.bg:setColor(cc.c3b(204, 192, 180))

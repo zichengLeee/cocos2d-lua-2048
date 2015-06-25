@@ -89,12 +89,12 @@ function MainScene:autoCreateCardNumber()
 		card:setNumber(self:getRandom(9) < 1 and 4 or 2)
 		card:play()
 	end
-	print("----------打印布局----------")
-	print(cardArr[1][4]:getNumber(),cardArr[2][4]:getNumber(),cardArr[3][4]:getNumber(),cardArr[4][4]:getNumber())
-	print(cardArr[1][3]:getNumber(),cardArr[2][3]:getNumber(),cardArr[3][3]:getNumber(),cardArr[4][3]:getNumber())
-	print(cardArr[1][2]:getNumber(),cardArr[2][2]:getNumber(),cardArr[3][2]:getNumber(),cardArr[4][2]:getNumber())
-	print(cardArr[1][1]:getNumber(),cardArr[2][1]:getNumber(),cardArr[3][1]:getNumber(),cardArr[4][1]:getNumber())
-	print("---------结束打印布局---------")
+	-- print("----------打印布局----------")
+	-- print(cardArr[1][4]:getNumber(),cardArr[2][4]:getNumber(),cardArr[3][4]:getNumber(),cardArr[4][4]:getNumber())
+	-- print(cardArr[1][3]:getNumber(),cardArr[2][3]:getNumber(),cardArr[3][3]:getNumber(),cardArr[4][3]:getNumber())
+	-- print(cardArr[1][2]:getNumber(),cardArr[2][2]:getNumber(),cardArr[3][2]:getNumber(),cardArr[4][2]:getNumber())
+	-- print(cardArr[1][1]:getNumber(),cardArr[2][1]:getNumber(),cardArr[3][1]:getNumber(),cardArr[4][1]:getNumber())
+	-- print("---------结束打印布局---------")
 end
 
 
@@ -371,24 +371,24 @@ function MainScene:doDown()
 	local card
 	local cardLast
 
-	for x = 1,4 do
-        for y = 1,4 do
-            for y1 = y + 1,4 do
-                if (cardArr[x][y1]:getNumber() > 0) then
-                    if (cardArr[x][y]:getNumber() <= 0) then
-                        cardArr[x][y]:setNumber(cardArr[x][y1]:getNumber())
-                        cardArr[x][y1]:setNumber(0);
-                        y = y-1
-                    elseif(cardArr[x][y]:getNumber() == cardArr[x][y1]:getNumber()) then
-                        cardArr[x][y]:setNumber(cardArr[x][y]:getNumber() * 2)
-                        cardArr[x][y1]:setNumber(0);
-                        -- totalScore = totalScore+cardArr[x][y]:getNumber()
-                    end
-                    break
-                end
-            end
-        end
-    end
+	-- for x = 1,4 do
+ --        for y = 1,4 do
+ --            for y1 = y + 1,4 do
+ --                if (cardArr[x][y1]:getNumber() > 0) then
+ --                    if (cardArr[x][y]:getNumber() <= 0) then
+ --                        cardArr[x][y]:setNumber(cardArr[x][y1]:getNumber())
+ --                        cardArr[x][y1]:setNumber(0);
+ --                        y = y-1
+ --                    elseif(cardArr[x][y]:getNumber() == cardArr[x][y1]:getNumber()) then
+ --                        cardArr[x][y]:setNumber(cardArr[x][y]:getNumber() * 2)
+ --                        cardArr[x][y1]:setNumber(0);
+ --                        -- totalScore = totalScore+cardArr[x][y]:getNumber()
+ --                    end
+ --                    break
+ --                end
+ --            end
+ --        end
+ --    end
 
 	for x = 1,4 do
         for y = 1,4 do
