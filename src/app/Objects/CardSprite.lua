@@ -17,7 +17,7 @@ function CardSprite:ctor(num,w,h,cX,cY)
 	-- 之前使用的是函数createCardSprite，但是会导致问题，第一次获取数字变成了创建精灵，结果导致各种问题。
 	self.number = num
 	
-	self.bg = cc.LayerColor:create(cc.c4b(200,190,180,255),w - 15,h - 15)
+	self.bg = cc.LayerColor:create(cc.c4b(204,192,180,255),w - 15,h - 15)
 	self.bg:setPosition(cX,cY)
 
 
@@ -73,40 +73,51 @@ function CardSprite:setNumber(num)
 	-- end
 
 	if num == 0 then
-		self.bg:setColor(cc.c3b(200, 190, 180))
+		self.bg:setColor(cc.c3b(204, 192, 180))
 	end
 	if num == 2 then
-		self.bg:setColor(cc.c3b(240, 230, 220))
+		self.bg:setColor(cc.c3b(238, 228, 218))
+		self.numLabel:setColor(cc.c4b(119,110,101))
 	end
 	if num == 4 then
 		self.bg:setColor(cc.c3b(240, 220, 200))
+		self.numLabel:setColor(cc.c4b(119,110,101))
 	end
 	if num == 8 then
-		self.bg:setColor(cc.c3b(240, 180, 201))
+		self.bg:setColor(cc.c3b(242, 177, 121))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 	if num == 16 then
-		self.bg:setColor(cc.c3b(240, 140, 90))
+		self.bg:setColor(cc.c3b(236, 141, 84))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 	if num == 32 then
-		self.bg:setColor(cc.c3b(240, 120, 90))
+		self.bg:setColor(cc.c3b(246, 124, 95))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 	if num == 64 then
-		self.bg:setColor(cc.c3b(240, 90, 60))
+		self.bg:setColor(cc.c3b(234, 89, 55))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 	if num == 128 then
 		self.bg:setColor(cc.c3b(240, 90, 60))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 	if num == 256 then
 		self.bg:setColor(cc.c3b(240, 200, 70))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 	if num == 512 then
 		self.bg:setColor(cc.c3b(240, 200, 70))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 	if num == 1024 then
 		self.bg:setColor(cc.c3b(0, 130, 0))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 	if num == 2048 then
 		self.bg:setColor(cc.c3b(0, 130, 0))
+		self.numLabel:setColor(cc.c4b(255,255,255))
 	end
 
 
