@@ -12,10 +12,14 @@ end)
 CardSprite.number = 0
 CardSprite.numLabel = nil
 CardSprite.bg = nil
+CardSprite.cX = 0
+CardSprite.cY = 0
 
 function CardSprite:ctor(num,w,h,cX,cY)
 	-- 之前使用的是函数createCardSprite，但是会导致问题，第一次获取数字变成了创建精灵，结果导致各种问题。
 	self.number = num
+	self.cX = cX
+	self.cY = cY
 	
 	self.bg = cc.LayerColor:create(cc.c4b(204,192,180,255),w - 15,h - 15)
 	self.bg:setPosition(cX,cY)
@@ -61,7 +65,7 @@ function CardSprite:setNumber(num)
 
 	if num >=16 then
 		-- self.numLabel:setSystemFontSize(60)
-		self.numLabel:setPosition(self.bg:getContentSize().width / 2 -40, self.bg:getContentSize().height / 2)
+		self.numLabel:setPosition(self.bg:getContentSize().width / 2 -45, self.bg:getContentSize().height / 2)
 	end
 
 	if num >=128 then
@@ -136,6 +140,7 @@ end
 
 function CardSprite:play()
 	-- 机智，等数字出来，直接缩小，然后在播放放大动画。
+	
 	self.numLabel:runAction(cc.Sequence:create(cc.ScaleTo:create(0, 0.1, 0.1), cc.ScaleTo:create(0.5, 1, 1)))
 end
 

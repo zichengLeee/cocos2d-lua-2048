@@ -7,6 +7,7 @@
 -- 1,3	2,3	3,3	4,3
 -- 1,2	2,2	3,2	4,2
 -- 1,1	2,1	3,1	4,1
+local scheduler = require("framework.scheduler")
 
 local size
 local cardArr = {}
@@ -14,8 +15,11 @@ local touchStart = {0, 0}
 local bg
 local gridbg
 local scoreLabel
-local score
+local score = 0
 local idDo = false
+local gameOver = false
+local gameOverCount = 0
+local gameOverLabel
 
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
@@ -26,11 +30,6 @@ local CardSprite = import("..Objects.CardSprite")
 function MainScene:ctor()
 	math.randomseed(os.time())
 	math.random()
-
-    -- cc.ui.UILabel.new({
-    --         UILabelType = 2, text = "Hello, World", size = 64})
-    --     :align(display.CENTER, display.cx, display.cy)
-    --     :addTo(self)
 
     -- self.visibleSize = cc.Director:getInstance():getVisibleSize()
     -- self.origin = cc.Director:getInstance():getVisibleOrigin()
@@ -64,6 +63,34 @@ function MainScene:ctor()
 
     self:autoCreateCardNumber()
     self:autoCreateCardNumber()
+
+    scoreLabel = cc.ui.UILabel.new({
+        UILabelType = 2, text = score, size = 64})
+    :align(display.CENTER, display.right - 100, display.top - 50)
+    :addTo(self)
+
+    gameOverLabel = cc.ui.UILabel.new({
+        UILabelType = 2, text = "GAME OVER!!!", size = 64})
+    :align(display.CENTER, display.cx, display.cy)
+    :addTo(self)
+
+    gameOverLabel:setVisible(false)
+
+  -- 这里打开就可以随机移动测试。
+  --   local function onInterval(dt)
+	 --    local i = self:getRandom(4)
+		-- if i == 1 then
+		-- 	self:doRight()
+		-- elseif i == 2 then
+		-- 	self:doLeft()
+		-- elseif i == 3 then
+		-- 	self:doUp()
+		-- elseif  i == 4 then
+		-- 	self:doDown()
+		-- end
+  --   end
+  --   -- 每 0.5 秒执行一次 onInterval()
+  --   local handle = scheduler.scheduleGlobal(onInterval, 0.1)
 end
 
 function MainScene:createCardSrpite(s)
@@ -81,6 +108,7 @@ function MainScene:createCardSrpite(s)
 end
 
 function MainScene:autoCreateCardNumber()
+
 	local i = self:getRandom(4)
 	local j = self:getRandom(4)
 	-- print(i,j)
@@ -92,6 +120,25 @@ function MainScene:autoCreateCardNumber()
 		card:setNumber(self:getRandom(9) < 1 and 4 or 2)
 		card:play()
 	end
+
+
+	-- Game Over判定！
+	-- for a=1,4 do
+	-- 	for b=1,4 do
+	-- 		if cardArr[a][b]:getNumber() > 0 then
+	-- 			gameOverCount = gameOverCount + 1
+	-- 		else
+	-- 			gameOverCount = 0
+	-- 		end
+	-- 	end
+	-- end
+
+	-- if gameOverCount > 16 then
+	-- 	print("GameOver!")
+	-- 	gameOver = true
+	-- 	gameOverLabel:setVisible(true)
+	-- end
+
 	-- print("----------打印布局----------")
 	-- print(cardArr[1][4]:getNumber(),cardArr[2][4]:getNumber(),cardArr[3][4]:getNumber(),cardArr[4][4]:getNumber())
 	-- print(cardArr[1][3]:getNumber(),cardArr[2][3]:getNumber(),cardArr[3][3]:getNumber(),cardArr[4][3]:getNumber())
@@ -144,6 +191,8 @@ function MainScene:doRight()
 					cardLast = cardArr[x1][y]
 					if cardLast:getNumber() ~=0 then
 						if card:getNumber() == cardLast:getNumber() then
+							score = score + cardLast:getNumber() * 2
+							scoreLabel:setString(score)
 							card:setNumber(cardLast:getNumber() * 2)
 							cardLast:setNumber(0)
 							isDo = true
@@ -248,6 +297,8 @@ function MainScene:doLeft()
 					cardLast = cardArr[x1][y]
 					if cardLast:getNumber() ~=0 then
 						if card:getNumber() == cardLast:getNumber() then
+							score = score + cardLast:getNumber() * 2
+							scoreLabel:setString(score)
 							card:setNumber(cardLast:getNumber() * 2)
 							cardLast:setNumber(0)
 							isDo = true
@@ -347,6 +398,8 @@ function MainScene:doUp()
 					cardLast = cardArr[x][y1]
 					if cardLast:getNumber() ~=0 then
 						if card:getNumber() == cardLast:getNumber() then
+							score = score + cardLast:getNumber() * 2
+							scoreLabel:setString(score)
 							card:setNumber(cardLast:getNumber() * 2)
 							cardLast:setNumber(0)
 							isDo = true
@@ -417,6 +470,8 @@ function MainScene:doDown()
 					cardLast = cardArr[x][y1]
 					if cardLast:getNumber() ~=0 then
 						if card:getNumber() == cardLast:getNumber() then
+							score = score + cardLast:getNumber() * 2
+							scoreLabel:setString(score)
 							card:setNumber(cardLast:getNumber() * 2)
 							cardLast:setNumber(0)
 							isDo = true
